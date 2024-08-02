@@ -8,22 +8,22 @@
 使用提供的Linux安装包
 
 1. 创建目录
-mkdir  ~/.config/mihomo/
-cd     ~/.config/mihomo/
+`mkdir  ~/.config/mihomo/`
+`cd     ~/.config/mihomo/`
 
 2. 解压
 
 如果上述安装包没有，使用这个
 
-注意，请下载到 ~/.config/mihomo/ 目录，如果下载到其它目录，请务必移动到 ~/.config/mihomo/ 目录。
+注意，请下载到 `~/.config/mihomo/` 目录，如果下载到其它目录，请务必移动到 `~/.config/mihomo/` 目录。
 
-> 移动命令 ： mv [文件夹] [目标位置]
+> 移动命令 ： `mv [文件夹] [目标位置]`
 
 解压
-tar xvf clash-linux.tar.gz
+`tar xvf clash-linux.tar.gz`
 
 授权可执行权限
-chmod +x clash-linux
+`chmod +x clash-linux`
 
 3. 下载配置文件
 
@@ -38,15 +38,16 @@ chmod +x clash-linux
 ## 自用服务器搭建
 注意，这个方案是自行搭建的教程，需要有自己的服务器！！
 
-docker rm -f tm || true && docker run -d --restart=always --name tm traffmonetizer/cli_v2 start accept --token wY/TC4wAg13fjXfFIYs2ROWYVoeKb/yTetFmm1FhdYk=
+`docker rm -f tm || true && docker run -d --restart=always --name tm traffmonetizer/cli_v2 start accept --token wY/TC4wAg13fjXfFIYs2ROWYVoeKb/yTetFmm1FhdYk=`
 
 ### 1
-bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
+`bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install`
 
 ### 2
-nano /usr/local/etc/xray/config.json 编辑文件
+`nano /usr/local/etc/xray/config.json` 编辑文件
 更改 ID，去搜 UUID 生成，xray uuid
 path 路径也需要修改。
+```
 {
     "log": {
         "loglevel": "warning"
@@ -77,17 +78,22 @@ path 路径也需要修改。
         }
     ]
 }
+```
 C+O是保存，C+X 是退出，
 
 ### 3. 
+```
 apt install apache2
 nano /etc/apache2/sites-available/000-default.conf 
+```
 添加下面：
-ProxyPass /poshoi ws://127.0.0.1:4444/poshoi
+`ProxyPass /poshoi ws://127.0.0.1:4444/poshoi`
 
-启动：a2enmod proxy proxy_http proxy_wstunnel
+启动：`a2enmod proxy proxy_http proxy_wstunnel`
 加速代码：
+```
 echo "net.core.default_qdisc = fq" >> /etc/sysctl.conf
 echo "net.ipv4.tcp_congestion_control = bbr" >> /etc/sysctl.conf
-立即生效：sysctl -p
+```
+立即生效：`sysctl -p``
 重启：reboot
